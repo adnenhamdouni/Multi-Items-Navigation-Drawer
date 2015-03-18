@@ -9,7 +9,7 @@
  * survivingwithandroid@gmail.com
  *
  */
-package com.leadertun.android.multiitemsnavigationdrawer;
+package com.leadertun.android.multiitemsnavigationdrawer.weather;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

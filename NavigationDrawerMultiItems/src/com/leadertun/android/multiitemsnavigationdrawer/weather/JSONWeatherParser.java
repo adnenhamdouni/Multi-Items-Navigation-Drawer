@@ -9,14 +9,14 @@
  * survivingwithandroid@gmail.com
  *
  */
-package com.leadertun.android.multiitemsnavigationdrawer;
+package com.leadertun.android.multiitemsnavigationdrawer.weather;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.leadertun.android.multiitemsnavigationdrawer.model.Location;
-import com.leadertun.android.multiitemsnavigationdrawer.model.Weather;
+import com.leadertun.android.multiitemsnavigationdrawer.wrapper.LocationWrapper;
+import com.leadertun.android.multiitemsnavigationdrawer.wrapper.WeatherWrapper;
 
 /*
  * Copyright (C) 2013 Surviving with Android (http://www.survivingwithandroid.com)
@@ -35,14 +35,14 @@ import com.leadertun.android.multiitemsnavigationdrawer.model.Weather;
  */
 public class JSONWeatherParser {
 
-    public static Weather getWeather(String data) throws JSONException {
-        Weather weather = new Weather();
+    public static WeatherWrapper getWeather(String data) throws JSONException {
+        WeatherWrapper weather = new WeatherWrapper();
 
         // We create out JSONObject from the data
         JSONObject jObj = new JSONObject(data);
 
         // We start extracting the info
-        Location loc = new Location();
+        LocationWrapper loc = new LocationWrapper();
 
         JSONObject coordObj = getObject("coord", jObj);
         loc.setLatitude(getFloat("lat", coordObj));

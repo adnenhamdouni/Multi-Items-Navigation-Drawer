@@ -2,7 +2,7 @@ package com.leadertun.android.multiitemsnavigationdrawer.event;
 
 import java.util.ArrayList;
 
-import com.leadertun.android.multiitemsnavigationdrawer.ItemWrapper;
+import com.leadertun.android.multiitemsnavigationdrawer.wrapper.ItemWrapper;
 
 import android.app.Fragment;
 

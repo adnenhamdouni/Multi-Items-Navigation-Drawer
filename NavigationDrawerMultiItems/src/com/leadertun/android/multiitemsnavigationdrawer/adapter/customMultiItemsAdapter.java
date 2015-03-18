@@ -1,4 +1,4 @@
-package com.leadertun.android.multiitemsnavigationdrawer;
+package com.leadertun.android.multiitemsnavigationdrawer.adapter;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -14,7 +14,11 @@ import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.leadertun.android.multiitemsnavigationdrawer.R;
+import com.leadertun.android.multiitemsnavigationdrawer.R.id;
+import com.leadertun.android.multiitemsnavigationdrawer.R.layout;
 import com.leadertun.android.multiitemsnavigationdrawer.event.MultiItemDrawerEvents;
+import com.leadertun.android.multiitemsnavigationdrawer.wrapper.ItemWrapper;
 
 import de.greenrobot.event.EventBus;
 

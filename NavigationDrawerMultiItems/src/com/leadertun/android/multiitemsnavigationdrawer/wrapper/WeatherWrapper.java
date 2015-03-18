@@ -9,7 +9,8 @@
  * survivingwithandroid@gmail.com
  *
  */
-package com.leadertun.android.multiitemsnavigationdrawer.model;
+package com.leadertun.android.multiitemsnavigationdrawer.wrapper;
+
 
 /*
  * Copyright (C) 2013 Surviving with Android (http://www.survivingwithandroid.com)
@@ -26,9 +27,9 @@ package com.leadertun.android.multiitemsnavigationdrawer.model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class Weather {
+public class WeatherWrapper {
 	
-	public Location location;
+	public LocationWrapper location;
 	public CurrentCondition currentCondition = new CurrentCondition();
 	public Temperature temperature = new Temperature();
 	public Wind wind = new Wind();

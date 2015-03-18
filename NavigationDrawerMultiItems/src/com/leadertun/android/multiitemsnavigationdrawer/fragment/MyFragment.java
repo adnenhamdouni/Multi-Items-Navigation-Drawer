@@ -1,4 +1,4 @@
-package com.leadertun.android.multiitemsnavigationdrawer;
+package com.leadertun.android.multiitemsnavigationdrawer.fragment;
 
 import org.json.JSONException;
 
@@ -11,10 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.leadertun.android.multiitemsnavigationdrawer.model.Weather;
+import com.leadertun.android.multiitemsnavigationdrawer.R;
+import com.leadertun.android.multiitemsnavigationdrawer.R.id;
+import com.leadertun.android.multiitemsnavigationdrawer.R.layout;
+import com.leadertun.android.multiitemsnavigationdrawer.weather.JSONWeatherParser;
+import com.leadertun.android.multiitemsnavigationdrawer.weather.WeatherHttpClient;
+import com.leadertun.android.multiitemsnavigationdrawer.wrapper.WeatherWrapper;
 
 public class MyFragment extends BaseFragment {
-    static final String ARG_NAME_NUMBER = "name_number";
+    public static final String ARG_NAME_NUMBER = "name_number";
 
     private TextView mCity;
     private TextView mTemperature;
@@ -46,11 +51,11 @@ public class MyFragment extends BaseFragment {
         return rootView;
     }
 
-    private class JSONWeatherTask extends AsyncTask<String, Void, Weather> {
+    private class JSONWeatherTask extends AsyncTask<String, Void, WeatherWrapper> {
 
         @Override
-        protected Weather doInBackground(String... params) {
-            Weather weather = new Weather();
+        protected WeatherWrapper doInBackground(String... params) {
+            WeatherWrapper weather = new WeatherWrapper();
             String data = ((new WeatherHttpClient()).getWeatherData(params[0]));
 
             try {
@@ -68,7 +73,7 @@ public class MyFragment extends BaseFragment {
         }
 
         @Override
-        protected void onPostExecute(Weather weather) {
+        protected void onPostExecute(WeatherWrapper weather) {
             super.onPostExecute(weather);
 
             if (weather.iconData != null && weather.iconData.length > 0) {

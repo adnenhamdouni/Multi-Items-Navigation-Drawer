@@ -1,4 +1,4 @@
-package com.leadertun.android.multiitemsnavigationdrawer;
+package com.leadertun.android.multiitemsnavigationdrawer.wrapper;
 
 public class ItemWrapper {
 

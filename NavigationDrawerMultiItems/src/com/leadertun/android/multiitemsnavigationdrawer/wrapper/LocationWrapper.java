@@ -9,7 +9,7 @@
  * survivingwithandroid@gmail.com
  *
  */
-package com.leadertun.android.multiitemsnavigationdrawer.model;
+package com.leadertun.android.multiitemsnavigationdrawer.wrapper;
 
 import java.io.Serializable;
 /*
@@ -27,7 +27,7 @@ import java.io.Serializable;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class Location implements Serializable {
+public class LocationWrapper implements Serializable {
 
 	private float longitude;
 	private float latitude;

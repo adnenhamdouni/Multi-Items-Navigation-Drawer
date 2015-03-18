@@ -21,7 +21,10 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.leadertun.android.multiitemsnavigationdrawer.adapter.customMultiItemsAdapter;
 import com.leadertun.android.multiitemsnavigationdrawer.event.MultiItemDrawerEvents;
+import com.leadertun.android.multiitemsnavigationdrawer.fragment.MyFragment;
+import com.leadertun.android.multiitemsnavigationdrawer.wrapper.ItemWrapper;
 
 import de.greenrobot.event.EventBus;
 
