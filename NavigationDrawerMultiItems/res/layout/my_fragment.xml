@@ -4,26 +4,35 @@
         android:id="@+id/main_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
-    <TextView
-        android:id="@+id/temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"/>
 
     <TextView
-        android:id="@+id/fragment_layout_textView"
+        android:id="@+id/fragment_layout_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="94dp"
-        android:layout_marginTop="101dp"
-        android:layout_alignBaseline="@id/temp"
-        android:layout_toRightOf="@id/temp"
-        android:text="Large Text"
+        android:layout_alignBottom="@+id/fragment_layout_temp"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginRight="32dp"
+        android:text="City"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
-    
-    
+
+    <TextView
+        android:id="@+id/fragment_layout_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fragment_layout_city"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="69dp"
+        android:text="Temp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/fragment_layout_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+   
 </RelativeLayout>
