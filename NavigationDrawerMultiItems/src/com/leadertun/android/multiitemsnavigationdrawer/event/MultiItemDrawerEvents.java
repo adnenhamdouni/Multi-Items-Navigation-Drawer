@@ -19,6 +19,10 @@ public class MultiItemDrawerEvents {
         private Fragment mFragment;
         private int mPosition;
 
+        public MoveToFragmentEvent(Fragment _fragment) {
+            mFragment = _fragment;
+        }
+        
         public MoveToFragmentEvent(Fragment _fragment, int _position) {
             mFragment = _fragment;
             mPosition = _position;

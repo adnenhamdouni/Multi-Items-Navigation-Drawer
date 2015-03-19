@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.leadertun.android.multiitemsnavigationdrawer.R;
 import com.leadertun.android.multiitemsnavigationdrawer.R.id;
@@ -125,26 +126,31 @@ public class customMultiItemsAdapter extends BaseAdapter {
                         Log.v("adnen", "box " + mItemWrapper.getName()
                                 + " has been clicked ");
 
-                        EventBus.getDefault().post(
-                                new MultiItemDrawerEvents.ItemClickEvent(
-                                        mItemWrapper));
+                       
 
                         if (mItemWrapper.isSelected() == true) {
 
-                            mItemWrapper.setSelected(false);
                             holder.checkbox.setChecked(mItemWrapper
                                     .isSelected());
                             Log.v("adnen", "box " + mItemWrapper.getName()
                                     + " has been checked ");
-                        } else if (mItemWrapper.isSelected() == false) {
 
-                            mItemWrapper.setSelected(true);
+                            mItemWrapper.setSelected(false);
+                            
+                        } else if (mItemWrapper.isSelected() == false) {
 
                             holder.checkbox.setChecked(mItemWrapper
                                     .isSelected());
                             Log.v("adnen", "box " + mItemWrapper.getName()
                                     + " has been inchecked ");
+                            
+                            mItemWrapper.setSelected(true);
+
                         }
+                        
+                        EventBus.getDefault().post(
+                                new MultiItemDrawerEvents.ItemClickEvent(
+                                        mItemWrapper));
 
                         // holder.checkbox.setChecked(!mListItemWrapper.get(position).isSelected());
 

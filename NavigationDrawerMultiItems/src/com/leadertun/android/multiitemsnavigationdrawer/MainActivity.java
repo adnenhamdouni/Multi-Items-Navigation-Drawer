@@ -2,6 +2,7 @@ package com.leadertun.android.multiitemsnavigationdrawer;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.SearchManager;
@@ -34,6 +35,10 @@ public class MainActivity extends Activity {
     private ActionBarDrawerToggle mDrawerToggle;
 
     ItemWrapper mItemWrapper;
+    Fragment fragment;
+    
+
+    private ActionBar mActionBar;
 
     private static int ADD_ACCOUNT = 0;
     private static int ALL_CALENDARS = 1;
@@ -55,6 +60,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         EventBus.getDefault().register(this);
+        
+        initActionBar();
+        
+        fragment = new MyFragment();
 
         mTitle = mDrawerTitle = getTitle();
         mNameTitles = getResources().getStringArray(R.array.names_array);
@@ -82,6 +91,13 @@ public class MainActivity extends Activity {
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu();
+                
+               fragment = new MyFragment();
+                
+                EventBus.getDefault().post(
+                        new MultiItemDrawerEvents.MoveToFragmentEvent(fragment));
+
+                
             }
 
             public void onDrawerOpened(View drawerView) {
@@ -96,6 +112,12 @@ public class MainActivity extends Activity {
             selectItem(0);
         }
     }
+
+     private void initActionBar() {
+            mActionBar = getActionBar();
+            mActionBar.hide();
+           
+        }
 
     private customMultiItemsAdapter CreateAdapterForMultiItems(
             int numborOfObject) {
@@ -202,15 +224,26 @@ public class MainActivity extends Activity {
         
         if (c.getItemWrapper() instanceof ItemWrapper) {
             Log.v("adnen", "name get from Adapter = " + c.getItemWrapper().getName());
+            mItemWrapper = c.getItemWrapper();
         }
+        
+        //TODO notify fragment with this changement & update list of calendar
+
+       
+        
     }
 
     public void onEvent(MultiItemDrawerEvents.MoveToFragmentEvent e) {
 
         if (e.getFragment() instanceof MyFragment) {
-            ItemWrapper object = new ItemWrapper("adnen");
-            object.setSelected(true);
-
+            
+            Bundle args = new Bundle();
+            Log.v("adnen", "name before send to fragment "+mItemWrapper.getName());
+            args.putString(MyFragment.ARG_NAME_VALUE, mItemWrapper.getName());
+            args.putString(MyFragment.ARG_NAME_STATE, Boolean.toString(mItemWrapper.isSelected()));
+            
+            fragment.setArguments(args);
+            
             getFragmentManager().beginTransaction()
                     .replace(R.id.content_frame, e.getFragment())
                     .addToBackStack(null).commit();
@@ -218,9 +251,7 @@ public class MainActivity extends Activity {
             mDrawerList.setItemChecked(e.getPosition(), true);
             setTitle(mNameTitles[e.getPosition()]);
 
-            EventBus.getDefault().post(
-                    new MultiItemDrawerEvents.ItemClickEvent(object));
-
+          
         }
 
     }
@@ -229,15 +260,15 @@ public class MainActivity extends Activity {
 
     private void addAccount(int position) {
 
-        Fragment fragment = new MyFragment();
 
+       
+        Bundle args = new Bundle();
+        args.putString(MyFragment.ARG_NAME_VALUE, "add account");
+        fragment.setArguments(args);
+        
         EventBus.getDefault().post(
                 new MultiItemDrawerEvents.MoveToFragmentEvent(fragment, position));
 
-        Bundle args = new Bundle();
-        args.putInt(MyFragment.ARG_NAME_NUMBER, position);
-        args.putString("addaccount", "position " + Integer.toString(position));
-        fragment.setArguments(args);
 
         // FragmentManager fragmentManager = getFragmentManager();
         // fragmentManager.beginTransaction()
@@ -250,13 +281,12 @@ public class MainActivity extends Activity {
 
     private void selectItem(int position) {
 
-        Fragment fragment = new MyFragment();
 
         EventBus.getDefault().post(
                 new MultiItemDrawerEvents.MoveToFragmentEvent(fragment, position));
 
         Bundle args = new Bundle();
-        args.putInt(MyFragment.ARG_NAME_NUMBER, position);
+        args.putInt(MyFragment.ARG_NAME_STATE, position);
         args.putString("addaccount", "position " + Integer.toString(position));
         fragment.setArguments(args);
 

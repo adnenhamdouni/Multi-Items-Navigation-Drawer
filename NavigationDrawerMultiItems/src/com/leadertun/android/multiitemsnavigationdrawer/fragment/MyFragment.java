@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +15,19 @@ import android.widget.TextView;
 import com.leadertun.android.multiitemsnavigationdrawer.R;
 import com.leadertun.android.multiitemsnavigationdrawer.R.id;
 import com.leadertun.android.multiitemsnavigationdrawer.R.layout;
+import com.leadertun.android.multiitemsnavigationdrawer.event.MultiItemDrawerEvents;
 import com.leadertun.android.multiitemsnavigationdrawer.weather.JSONWeatherParser;
 import com.leadertun.android.multiitemsnavigationdrawer.weather.WeatherHttpClient;
+import com.leadertun.android.multiitemsnavigationdrawer.wrapper.ItemWrapper;
 import com.leadertun.android.multiitemsnavigationdrawer.wrapper.WeatherWrapper;
 
 public class MyFragment extends BaseFragment {
-    public static final String ARG_NAME_NUMBER = "name_number";
-
+    public static final String ARG_NAME_STATE = "name_number";
+    public static final String ARG_NAME_VALUE = "value";
+    
     private TextView mCity;
     private TextView mTemperature;
+    private ItemWrapper mItemWrapper;
 
     public MyFragment() {
 
@@ -33,11 +38,12 @@ public class MyFragment extends BaseFragment {
             Bundle savedInstanceState) {
         View rootView = inflater
                 .inflate(R.layout.my_fragment, container, false);
-        int i = getArguments().getInt(ARG_NAME_NUMBER);
-        String str = getArguments().getString("addaccount");
-
+       
+        String str = getArguments().getString(ARG_NAME_VALUE);
+        String stat = getArguments().getString(ARG_NAME_STATE);
+        
         ((TextView) rootView.findViewById(R.id.fragment_layout_text))
-                .setText(str);
+                .setText(str +" is " + stat);
 
         mCity = (TextView) rootView.findViewById(R.id.fragment_layout_city);
         mTemperature = (TextView) rootView
