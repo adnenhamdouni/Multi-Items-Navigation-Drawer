@@ -42,13 +42,22 @@ public class MultiItemDrawerEvents {
     
     public static class ItemClickEvent {
         private ItemWrapper mItemWrapper;
-
+        ArrayList<ItemWrapper> mListItemWrapper;
+        
         public ItemClickEvent(ItemWrapper _itemWrapper) {
             mItemWrapper = _itemWrapper;
+        }
+        
+        public ItemClickEvent(ArrayList<ItemWrapper> _listItemWrapper) {
+            mListItemWrapper = _listItemWrapper;
         }
 
         public ItemWrapper getItemWrapper() {
             return mItemWrapper;
+        }
+        
+        public ArrayList<ItemWrapper> getListItemWrapper() {
+            return mListItemWrapper;
         }
     }
 

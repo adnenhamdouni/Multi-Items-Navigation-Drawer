@@ -3,18 +3,7 @@
     
         android:id="@+id/main_fragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <TextView
-        android:id="@+id/fragment_layout_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/fragment_layout_temp"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="24dp"
-        android:layout_marginRight="32dp"
-        android:text="City"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    android:layout_height="wrap_content" >
 
     <TextView
         android:id="@+id/fragment_layout_temp"
@@ -27,11 +16,23 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
+        android:id="@+id/fragment_layout_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/fragment_layout_temp"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="26dp"
+        android:layout_marginRight="31dp"
+        android:text="City"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
         android:id="@+id/fragment_layout_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginBottom="160dp"
         android:text="text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
    

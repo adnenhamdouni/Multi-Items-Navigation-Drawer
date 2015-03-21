@@ -2,12 +2,17 @@ package com.leadertun.android.multiitemsnavigationdrawer;
 
 import java.util.ArrayList;
 
+import org.json.JSONException;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -20,12 +25,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.leadertun.android.multiitemsnavigationdrawer.adapter.customMultiItemsAdapter;
 import com.leadertun.android.multiitemsnavigationdrawer.event.MultiItemDrawerEvents;
 import com.leadertun.android.multiitemsnavigationdrawer.fragment.MyFragment;
+import com.leadertun.android.multiitemsnavigationdrawer.weather.JSONWeatherParser;
+import com.leadertun.android.multiitemsnavigationdrawer.weather.WeatherHttpClient;
 import com.leadertun.android.multiitemsnavigationdrawer.wrapper.ItemWrapper;
+import com.leadertun.android.multiitemsnavigationdrawer.wrapper.WeatherWrapper;
 
 import de.greenrobot.event.EventBus;
 
@@ -34,8 +43,12 @@ public class MainActivity extends Activity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    ItemWrapper mItemWrapper;
-    Fragment fragment;
+    private ItemWrapper mItemWrapper;
+    private ArrayList<ItemWrapper> mListItemWrapper;
+    private Fragment fragment;
+
+    private TextView mCity;
+    private TextView mTemperature;
 
     private ActionBar mActionBar;
 
@@ -108,7 +121,12 @@ public class MainActivity extends Activity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
+
+        
+
     }
+
+   
 
     private void initActionBar() {
         mActionBar = getActionBar();
@@ -225,6 +243,13 @@ public class MainActivity extends Activity {
             mItemWrapper = c.getItemWrapper();
         }
 
+        if (c.getListItemWrapper() instanceof ArrayList<?>) {
+            Log.v("adnen", "name get from list in Adapter = "
+                    + c.getListItemWrapper().get(0).getName());
+            mItemWrapper = c.getItemWrapper();
+            mListItemWrapper = c.getListItemWrapper();
+        }
+
         // TODO notify fragment with this changement & update list of calendar
 
     }
@@ -234,12 +259,15 @@ public class MainActivity extends Activity {
         if (e.getFragment() instanceof MyFragment) {
 
             Bundle args = new Bundle();
-            Log.v("adnen",
-                    "name before send to fragment " + mItemWrapper.getName());
-            args.putString(MyFragment.ARG_NAME_VALUE, mItemWrapper.getName());
+            Log.v("adnen", "name before send to fragment "
+                    + mListItemWrapper.get(0).getName());
+            args.putString(MyFragment.ARG_NAME_VALUE, mListItemWrapper.get(0)
+                    .getName());
             args.putString(MyFragment.ARG_NAME_STATE,
-                    Boolean.toString(mItemWrapper.isSelected()));
+                    Boolean.toString(mListItemWrapper.get(0).isSelected()));
 
+            args.putSerializable(MyFragment.ARG_LIST_CALENDARS,
+                    mListItemWrapper);
             fragment.setArguments(args);
 
             getFragmentManager().beginTransaction()
@@ -248,6 +276,8 @@ public class MainActivity extends Activity {
 
             mDrawerList.setItemChecked(e.getPosition(), true);
             setTitle(mNameTitles[e.getPosition()]);
+            
+            
 
         }
 
@@ -320,5 +350,7 @@ public class MainActivity extends Activity {
 
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
+    
 
 }

@@ -148,9 +148,13 @@ public class customMultiItemsAdapter extends BaseAdapter {
 
                         }
                         
+                        //EventBus.getDefault().post(
+                        //        new MultiItemDrawerEvents.ItemClickEvent(
+                        //               mItemWrapper));
+                        
                         EventBus.getDefault().post(
                                 new MultiItemDrawerEvents.ItemClickEvent(
-                                        mItemWrapper));
+                                        mListItemWrapper));
 
                         // holder.checkbox.setChecked(!mListItemWrapper.get(position).isSelected());
 

@@ -1,5 +1,7 @@
 package com.leadertun.android.multiitemsnavigationdrawer.fragment;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 
 import android.graphics.Bitmap;
@@ -20,15 +22,19 @@ import com.leadertun.android.multiitemsnavigationdrawer.weather.JSONWeatherParse
 import com.leadertun.android.multiitemsnavigationdrawer.weather.WeatherHttpClient;
 import com.leadertun.android.multiitemsnavigationdrawer.wrapper.ItemWrapper;
 import com.leadertun.android.multiitemsnavigationdrawer.wrapper.WeatherWrapper;
+import com.leadertun.android.multiitemsnavigationdrawer.wrapper.WeatherWrapper.Temperature;
 
 public class MyFragment extends BaseFragment {
     public static final String ARG_NAME_STATE = "name_number";
     public static final String ARG_NAME_VALUE = "value";
+
+    public static final String ARG_LIST_CALENDARS = "listCalendars";
     
     private TextView mCity;
     private TextView mTemperature;
     private ItemWrapper mItemWrapper;
-
+    private ArrayList<ItemWrapper> mListItemWrapper;
+    
     public MyFragment() {
 
     }
@@ -41,9 +47,21 @@ public class MyFragment extends BaseFragment {
        
         String str = getArguments().getString(ARG_NAME_VALUE);
         String stat = getArguments().getString(ARG_NAME_STATE);
+        mListItemWrapper = (ArrayList<ItemWrapper>) getArguments().getSerializable(ARG_LIST_CALENDARS);
         
-        ((TextView) rootView.findViewById(R.id.fragment_layout_text))
-                .setText(str +" is " + stat);
+        TextView text = ((TextView)rootView.findViewById(R.id.fragment_layout_text));
+        
+        
+        String mText = "Stat of calendars : \n ";
+        
+        for (ItemWrapper itemWrapper : mListItemWrapper) {
+            mText = mText + itemWrapper.getName() +" is " + itemWrapper.isSelected()+"\n ";
+        }
+        
+        text.setText(mText);
+
+        
+        //text.setText(mListItemWrapper.get(0).getName() +" is " + mListItemWrapper.get(0).isSelected());
 
         mCity = (TextView) rootView.findViewById(R.id.fragment_layout_city);
         mTemperature = (TextView) rootView
@@ -91,10 +109,21 @@ public class MyFragment extends BaseFragment {
             mCity.setText(weather.location.getCity() + ","
                     + weather.location.getCountry());
             mTemperature.setText(""
-                    + Math.round((weather.temperature.getTemp() - 273.15))
+                    + Math.round(convertTempCelsius(weather.temperature.getTemp()))
                     + "°C");
+                    
+                    
 
         }
+
+        private double convertTempCelsius(double currentTemp) {
+            // TODO Auto-generated method stub
+            
+            double convertedTemp = currentTemp - 273.15;
+            return convertedTemp;
+        }
+        
+       
 
     }
 
